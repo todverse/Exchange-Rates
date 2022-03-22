@@ -1,0 +1,60 @@
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.root-p {
+			border-bottom: 1px solid black;
+		}
+		.root-p:hover .col {
+			color: blue;
+		}
+		.info {
+			width: 100%;
+		}
+		#root {
+			width: 560px;
+			margin: auto;
+		}
+		.col {
+			box-sizing: border-box;
+			display: inline-block;
+			width: 150px;
+			text-align: center;
+			margin-bottom: 5px;
+			margin-top: 5px;
+			white-space: nowrap;
+			overflow-x: hidden;
+			text-overflow: ellipsis;
+		}
+		.col:hover {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		.razn {
+			width: 200px;
+		}
+		.name {
+			width: 200px;
+		}
+		.name:hover {
+			color: blue;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		.nam {
+			width: 200px;
+		}
+		.main {
+			padding-bottom: 10px;
+			font-weight: 700;
+		}
+		.api {
+			color: black;
+			position: absolute;
+			top: 10px;
+			left: 10px;
+		}
+		.api:hover {
+			color: rgba(10,10,10,0.8);
+			cursor: pointer;
+		}
