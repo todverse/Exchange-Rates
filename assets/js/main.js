@@ -76,7 +76,7 @@
 
   			//установка атрибутов для элементов в которых будет записана информация о текущем курсе
   			elem.setAttribute('class', 'col name');
-  			elem.innerHTML = `${valute}`;
+  			elem.innerHTML = `${rates.Valute[valute].Name}`;
   			elem.setAttribute('title', `${valute} ${rates.Valute[valute].NumCode} ${rates.Valute[valute].Name}`);
         
 
