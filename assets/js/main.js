@@ -1,124 +1,114 @@
-    let prevRates;
-    //массив для получения месяца из даты
-		let month = [
-			'Января',
-			'Февраля',
-			'Марта',
-			'Апреля',
-			'Мая',
-			'Июня',
-			'Июля',
-			'Августа',
-			'Сентября',
-			'Октября',
-			'Ноября',
-			'Декабря',
-		];
+//массив для получения месяца из даты
+let month = [
+	'Января',
+	'Февраля',
+	'Марта',
+	'Апреля',
+	'Мая',
+	'Июня',
+	'Июля',
+	'Августа',
+	'Сентября',
+	'Октября',
+	'Ноября',
+	'Декабря',
+]
 
-		//функция из API
-		function CBR_XML_Daily_Ru(rates) {
-  		function trend(current, previous) {
-  			//функция которая находит разницу между двумя числами
-    		if (current > previous) {
-    			let procent = previous/100;
-    			procent = (current-previous)/procent;
-    			return ' ' + procent.toFixed(2) + '% ▲';
-    		};
-    		if (current < previous) {
-    			let procent = previous/100;
-    			procent = (current-previous)/procent;
-    			return ' ' + procent.toFixed(2) + '% ▼';
-    		};
-    		return ' 0% ◄ ►';
-  		}
+let prevRates
 
-  		//перебор ключей в которх хранятся данные о валюте
-  		for(valute in rates.Valute) {
-  			//элементы в которые будут записываться данные о курсе
-  			let elem = document.createElement('div');
-  			let elem1 = document.createElement('div');
-  			let elem2 = document.createElement('div');
-  			let main = document.createElement('div');
-  			let info = document.createElement('div');
+let days = 8
 
+let valt = {}
+let valute_c
 
+function render(valt) {
+	let table = document.getElementsByClassName('render_table')[0]
+	table.innerHTML = ''
+	Object.keys(valt).forEach((val, index) => {
+		// console.log(val)
+		let valutes = document.createElement('div')
+		valutes.setAttribute('class', 'flex_col')
 
+		let name = document.createElement('p')
+		name.setAttribute('class', 'col')
+		name.setAttribute('title', `${valt[val].name} ${val}`)
+		name.innerHTML = `${valt[val].name} ${val}`
+		valutes.appendChild(name)
 
-  			//установка атрибутов для основных блоков
-  			info.setAttribute('class', 'info');
-  			main.setAttribute('class', 'root-p');
-  			main.setAttribute('valute', valute);
-        prevRates = rates;
+		let vals = document.createElement('p')
+		vals.setAttribute('class', 'col')
+		vals.innerHTML = valt[val].value
+		valutes.appendChild(vals)
 
+		let trend = document.createElement('p')
+		trend.setAttribute('class', 'col')
+		trend.innerHTML = valt[val].trend
+		valutes.appendChild(trend)
 
-        (async () => { 
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-              await getPrevState();
-            })()
+		table.appendChild(valutes)
 
-
-  			//обработка клика по элементу с информацией о курсе для отправки запроса и получения данных за прошлые даты
-  			main.addEventListener('click', () => {
-          if(main.childNodes.length < 4) {
-            main.appendChild(info);
-          } else {
-            main.removeChild(info);
-          }
-        });
-
-  			//установка атрибутов для элементов в которых будет записана информация о текущем курсе
-  			elem.setAttribute('class', 'col name');
-  			elem.innerHTML = `${rates.Valute[valute].Name}`;
-  			elem.setAttribute('title', `${valute} ${rates.Valute[valute].NumCode} ${rates.Valute[valute].Name}`);
-        
-
-  			elem1.setAttribute('class', 'col');
-  			elem1.innerHTML = rates.Valute[valute].Value;
-
-  			
-
-  			elem2.setAttribute('class', 'col razn');
-  			elem2.innerHTML = trend(rates.Valute[valute].Value, rates.Valute[valute].Previous);
-
-  			
-
-  			main.appendChild(elem);
-  			main.appendChild(elem1);
-  			main.appendChild(elem2);
-
-
-  			document.getElementById('root').appendChild(main);
-        async function getPrevState() {
-          let infoElem = document.createElement('div');
-          let infoElem1 = document.createElement('div');
-          let infoElem2 = document.createElement('div');
-
-          infoElem.setAttribute('class', 'col name');
-          infoElem2.setAttribute('class', 'col razn');
-          infoElem1.setAttribute('class', 'col');
-
-          info.appendChild(infoElem);
-          info.appendChild(infoElem1);
-          info.appendChild(infoElem2);
-
-          let getPrev = await fetch(`https:${prevRates.PreviousURL}`);
-          let res = await getPrev.json();
-          prevRates = res;
-          let prevDate = new Date(res.Date);
-              infoElem.innerHTML = `Курс на 
-                          ${prevDate.getDate()} 
-                          ${month[prevDate.getMonth()]} 
-                          ${prevDate.getFullYear()}`
-              infoElem1.innerHTML = res.Valute[main.getAttribute('valute')].Value;
-              infoElem2.innerHTML = trend(res.Valute[main.getAttribute('valute')].Value, res.Valute[main.getAttribute('valute')].Previous);
-      };
-	}
+		// console.log(valt[val])
+	})
 }
+function render_select(valute_c) {
+	let to_select = document.getElementsByClassName('convert_to_select')[0]
+	Object.keys(valute_c).forEach((val,index) => {
+		let option_to = document.createElement('option')
+		option_to.innerHTML = `${valt[val].name} ${val}`
+		option_to.setAttribute('value', valt[val].value)
+
+		to_select.appendChild(option_to)
+		if(index == 0) document.getElementsByClassName('label_to')[0].innerHTML = `${valt[val].name} ${val}`
+	})
+}
+
+//функция из API
+async function CBR_XML_Daily_Ru(rates) {
+	function trend(current, previous) {
+		//функция которая находит разницу между двумя числами
+		if (current > previous) {
+			let procent = previous/100
+			procent = (current-previous)/procent
+			return ' ' + procent.toFixed(2) + '% ▲'
+		}
+		if (current < previous) {
+			let procent = previous/100
+			procent = (current-previous)/procent
+			return ' ' + procent.toFixed(2) + '% ▼'
+		}
+		return ' 0% ◄ ►'
+	}
+
+	//перебор ключей в которх хранятся данные о валюте
+	for(valute in rates.Valute) {
+		valt[valute] = {
+			name: rates.Valute[valute].Name,
+			num_code: rates.Valute[valute].NumCode,
+			valute: valute,
+			value: rates.Valute[valute].Value,
+			trend: trend(rates.Valute[valute].Value, rates.Valute[valute].Previous)
+		}
+		
+		prevRates = rates;
+
+		// for(let i = 0; i < days; i++) {			
+		// 	let getPrev = await fetch(`https:${prevRates.PreviousURL}`)
+		// 	let res = await getPrev.json()
+		// 	prevRates = res
+		// 	let prevDate = new Date(res.Timestamp)
+
+		// 	valt[valute][Number(prevDate)] = {
+		// 		name: res.Valute[valute].Name,
+		// 		num_code: res.Valute[valute].NumCode,
+		// 		valute: valute,
+		// 		value: res.Valute[valute].Value,
+		// 		trend: trend(res.Valute[valute].Value, res.Valute[valute].Previous)
+		// 	}
+		// }
+	}
+	valute_c = JSON.parse(JSON.stringify(valt))
+	render(valt)
+	render_select(valute_c)
+}
+
+

@@ -10,11 +10,38 @@
   <meta name='viewport' content="width=device-width, initial-scale-1">
 </head>
 <body>
-	<a class='api' href="https://www.cbr-xml-daily.ru/">API для курсов ЦБ РФ</a>
-	<div id='root'>
-		<div class='col nam main'>Валюта</div>
-		<div class='col main'>Текущий курс</div>
-		<div class='col razn main'>Разница в процентах</div><br>
+	<script src="./assets/js/convert.js"></script>
+	<script src="./assets/js/search.js"></script>
+	<a class='api' href="https://www.cbr-xml-daily.ru/">API для курсов ЦБ РФ</a><br>
+	<div class="main">
+		<div class="converter">
+			<h2>Конвертер валют</h2>
+			<div class="field_converter">
+				<label for="rub">Рубли</label><br>
+				<input oninput="convert(this)" type="number" id="rub" class="convert_this" placeholder="Введите значение..." >
+			</div>
+
+			<div class="field_converter">
+				<label class="label_to" for="valute">Валюта</label><br>
+				<input oninput="convert(this)" type="number" id="valute" class="convert_to" placeholder="Введите значение..." >
+			</div>
+
+			<div class="field_converter">
+				<label for="valute_choice">Выберите валюту</label><br>
+				<select onchange="convert(this)" name="conver_to" id="valute_choice" class="convert_to_select"></select>
+			</div>
+		</div>
+
+		<div class="table">
+			<h2 style="display: inline-block;">Таблица</h2> <input class="search" oninput="search(this)" placeholder="Поиск">
+			<div class="render_table">
+				<div class="flex_col">
+					<h3 class="col">Валюта</h3>
+					<h3 class="col">Курс</h3>
+					<h3 class="col">Тренд</h3>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

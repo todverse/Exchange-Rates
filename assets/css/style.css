@@ -1,60 +1,98 @@
-		* {
-			margin: 0;
-			padding: 0;
-		}
-		.root-p {
-			border-bottom: 1px solid black;
-		}
-		.root-p:hover .col {
-			color: blue;
-		}
-		.info {
-			width: 100%;
-		}
-		#root {
-			width: 560px;
-			margin: auto;
-		}
-		.col {
-			box-sizing: border-box;
-			display: inline-block;
-			width: 150px;
-			text-align: center;
-			margin-bottom: 5px;
-			margin-top: 5px;
-			white-space: nowrap;
-			overflow-x: hidden;
-			text-overflow: ellipsis;
-		}
-		.col:hover {
-			text-decoration: underline;
-			cursor: pointer;
-		}
-		.razn {
-			width: 200px;
-		}
-		.name {
-			width: 200px;
-		}
-		.name:hover {
-			color: blue;
-			text-decoration: underline;
-			cursor: pointer;
-		}
-		.nam {
-			width: 200px;
-		}
-		.main {
-			padding-bottom: 10px;
-			font-weight: 700;
-		}
-		.api {
-			color: black;
-			position: absolute;
-			top: 10px;
-			left: 10px;
-		}
-		.api:hover {
-			color: rgba(10,10,10,0.8);
-			cursor: pointer;
-		}
+html {
+	background-color: rgba(0, 0, 0, 0.212);
+}
+input, textarea, select { 
+	background-color: transparent;
+}
+.table, .converter {
+	border: 1px solid rgba(0, 0, 0, 0.281);
+	border-radius: 10px;
+	padding: 15px;
+	background-color: white;
+	min-width: 330px;
+	width: 80%;
+	margin: auto;
+}
+
+.flex_col {
+	display: flex;
+}
+.col {
+	display: inline;
+	width: 33%;
+	overflow: hidden;
+	text-wrap: nowrap;
+	margin: auto;
+	padding: 5px;
+	border: 1px solid black;
+}
+.flex_col:not(:first-child) {
+	margin-top: -1px;
+}
+.col:not(:last-child) {
+	margin-right: -1px;
+}
+
+.field_converter {
+	display: inline-block;
+	margin-right: 15px;
+}
+.convert_this {
+	margin-bottom: 10px;
+}
+.convert_to {
+	margin-bottom: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+input,
+input:hover,
+input:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+	outline: none;
+	border: none;
+	padding-left: 10px;
+}
+
+input {
+	margin-bottom: 10px;
+	margin-top: 5px;
+	height: 25px;
+	outline: 1px solid rgb(157, 155, 255);
+	border-radius: 10px;
+}
+input:hover {
+	outline: 2px solid rgb(157, 155, 255);
+}
+input:focus {
+	outline: 3px solid rgb(157, 155, 255);
+}
+
+select,
+select:hover,
+select:focus {
+    appearance: none;
+	padding-left: 10px;
+}
+
+select {
+	margin-top: 5px;
+	border: 0px solid rgb(157, 155, 255);
+	outline: 1px solid rgb(157, 155, 255);
+	border-radius: 10px;
+	height: 25px;
+}
+select:hover {
+	outline: 2px solid rgb(157, 155, 255);
+}
+select:focus {
+	outline: 2px solid rgb(157, 155, 255);
+}
+
+.search {
+	margin-left: 15px;
+}
