@@ -107,8 +107,10 @@ async function CBR_XML_Daily_Ru(rates) {
 		prevRates = rates;
 	}
 	valute_c = JSON.parse(JSON.stringify(valt))
-	render(valt)
-	render_select(valute_c)
+	setTimeout(() => {
+		render(valt)
+		render_select(valute_c)
+	}, Math.floor(Math.random() * (3 - 1) + 1)* 1000)
 }
 
 
