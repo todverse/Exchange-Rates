@@ -23,7 +23,11 @@ let valute_c
 
 function render(valt) {
 	let table = document.getElementsByClassName('render_table')[0]
-	table.innerHTML = ''
+	table.innerHTML = `<div class="flex_col">
+	<h3 class="col">Валюта</h3>
+	<h3 class="col">Курс</h3>
+	<h3 class="col">Тренд</h3>
+</div>`
 	Object.keys(valt).forEach((val, index) => {
 		// console.log(val)
 		let valutes = document.createElement('div')
